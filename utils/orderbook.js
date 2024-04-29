@@ -12,6 +12,8 @@
     - setOrderbook(): Function to set orderbook
 */
 
+
+
 class Orderbook {
     constructor() {
         this.orderbook = [];
@@ -39,6 +41,41 @@ class Orderbook {
             }
         });
     }
+
+    /* Temporary logic for matching orders:
+    addOrder(order) {
+        if (order.type === 'buy') {
+            this.matchOrder(order, this.sellOrders, 'price', (a, b) => a >= b);
+            if (order.quantity > 0) {
+                this.insertOrder(this.buyOrders, order, (a, b) => b.price - a.price);
+            }
+        } else { // 'sell'
+            this.matchOrder(order, this.buyOrders, 'price', (a, b) => a <= b);
+            if (order.quantity > 0) {
+                this.insertOrder(this.sellOrders, order, (a, b) => a.price - b.price);
+            }
+        }
+    }
+
+    matchOrder(order, oppositeOrders, priceCondition, matchCondition) {
+        let i = 0;
+        while (order.quantity > 0 && i < oppositeOrders.length) {
+            if (matchCondition(order[priceCondition], oppositeOrders[i][priceCondition])) {
+                let tradedQuantity = Math.min(order.quantity, oppositeOrders[i].quantity);
+                order.quantity -= tradedQuantity;
+                oppositeOrders[i].quantity -= tradedQuantity;
+
+                if (oppositeOrders[i].quantity === 0) {
+                    oppositeOrders.splice(i, 1);
+                } else {
+                    i++;
+                }
+            } else {
+                break; // No more matches possible
+            }
+        }
+    }
+    */
 }
 
 module.exports = Orderbook;
